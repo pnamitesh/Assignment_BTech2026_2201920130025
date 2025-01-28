@@ -1,0 +1,42 @@
+class Solution {
+    public int minCut(String s) {
+        int n = s.length();
+
+        // Memoization table
+        int[][] dp = new int[n][n];
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        return solve(s, 0, n - 1, dp);
+    }
+
+    private boolean ispal(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    private int solve(String s, int i, int j, int[][] dp) {
+        // Base case: no cuts needed
+        if (i >= j || ispal(s, i, j)) return 0;
+
+        // If already computed
+        if (dp[i][j] != -1) return dp[i][j];
+
+        int minCuts = Integer.MAX_VALUE;
+
+        // Try every partition
+        for (int k = i; k < j; k++) {
+            if (ispal(s, i, k)) { // Only partition if left part is a palindrome
+                int cuts = 1 + solve(s, k + 1, j, dp);
+                minCuts = Math.min(minCuts, cuts);
+            }
+        }
+
+        return dp[i][j] = minCuts;
+    }
+}
