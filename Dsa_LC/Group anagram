@@ -1,0 +1,32 @@
+
+import java.util.*;
+
+
+class Solution{
+    public static List<List<String>> gpanagram(String []strs){
+        HashMap<String,List<String>> map=new HashMap<>();
+        for(String s:strs){
+            char word[]=s.toCharArray();
+            Arrays.sort(word);
+            String sorted_word=new String(word);
+
+            if(!map.containsKey(sorted_word)){
+                map.put(sorted_word,new ArrayList());
+            }
+            map.get(sorted_word).add(s);
+
+        }
+
+
+        return new ArrayList<>(map.values());
+    }
+}
+public class Group_anagram {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+            String s[]={"eat","tea","tan","ate","nat","bat"};
+            Solution so=new Solution();
+            System.out.println(so.gpanagram(s));
+        
+    }
+}
