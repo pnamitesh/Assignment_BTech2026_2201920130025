@@ -1,0 +1,48 @@
+
+import java.util.*;
+
+class Solution{
+    public static boolean isomorphicstring(String s,String t){
+        // since in isomorphic string we need to map the element from s to t and then from the t to s thus we require two hashmap so that there are no overlapping
+        if(s.length()!=t.length()) return  false;
+        HashMap<Character, Character> mapS=new HashMap<>();
+        HashMap<Character, Character> mapT=new HashMap<>();
+
+        for (int i=0;i<s.length();i++){
+            char sc=s.charAt(i);
+            char st=s.charAt(i);
+            if(mapS.containsKey(sc)){
+                if(mapS.get(sc)!=st) return false;
+            }
+            else{
+                mapS.put(sc,st);
+            }
+            if(mapT.containsKey(st)){
+                if(mapT.get(st)!=sc) return false;
+
+            }
+            else{
+                mapT.put(sc,st);
+            }
+            
+        }
+        return true;
+        
+    }
+}
+public class IsomorphicString {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("enter the string s");
+        String s=sc.nextLine();
+        System.out.println("enter the string t");
+
+        String t=sc.nextLine();
+        Solution so=new Solution();
+        System.out.println(so.isomorphicstring(s,t));
+    }
+}
+
+
+
+
