@@ -1,0 +1,69 @@
+class Solution {
+    // public static int maxi(int a[]){
+
+    //--------brute force --------solution
+    //     int max=Integer.MIN_VALUE;
+
+    //     for (int i=0;i<a.length;i++){
+    //         if(a[i]>max){
+    //             max=a[i];
+    //         }
+    //     }
+    //     return max;
+    // }
+
+    // public static int func(int a[],int hourly){
+    //     int tothrs=0;
+    //     for (int i=0;i<a.length;i++){
+    //         tothrs+=Math.ceil( (double)a[i]/(double)hourly);
+    //     }
+    //     return tothrs;
+    // }
+    // public int minEatingSpeed(int[] piles, int h) {
+    //     int reqtime=0;
+    //     int maxim=maxi(piles);
+    //     for(int i=1;i<=maxim;i++){
+    //          reqtime=func(piles,i);
+    //         if(reqtime<=h){
+    //             return i;
+    //         }
+    //     }
+    //     return maxim;
+
+    // -- optimal using binary search 
+
+    public static int maxi(int a[]){
+
+        
+         int max=Integer.MIN_VALUE;
+         for (int i=0;i<a.length;i++){
+             if(a[i]>max){
+                 max=a[i];
+             }
+         }
+         return max;
+    }
+     public  static int func(int a[], int hourly) {
+        int tothrs = 0;
+        for (int i = 0; i < a.length; i++) {
+            tothrs += Math.ceil((double) a[i] / (double) hourly);
+        }
+        return tothrs;
+    }
+
+    public int minEatingSpeed(int[] piles, int h) {
+       int low=1,high=maxi(piles);
+       while(low<=high){
+        int mid=low+(high-low)/2;
+        int reqtime=func(piles,mid);
+        if(reqtime<=h){
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+
+       }
+       return low;
+    }
+}
