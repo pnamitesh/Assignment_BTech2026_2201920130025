@@ -1,0 +1,36 @@
+import java.util.*;
+
+class Solution {
+    public  int  digitsum(int n){
+        int sum=0;
+        for(int i=n;i!=0;i/=10){
+            sum+=i%10;
+        }
+        return sum;
+    }
+    public  int countlargest(int n){
+        HashMap<Integer,Integer> map=new HashMap<>();
+
+        for(int i=1;i<=n;i++){
+            map.put(digitsum(i),map.getOrDefault(digitsum(i),0)+1);
+        }
+        int maxsize=0,count=0;
+
+        for (int size:map.values()){
+            if(size>maxsize){
+                maxsize=size;count=1;
+            }
+            else if(size==maxsize){
+                count++;
+            }
+        }
+        return count;
+    }
+}
+public class Countlargestgroup {
+    public static void main(String[] args) {
+        int n=13;
+        Solution s=new Solution();
+        System.out.println(s.countlargest(n));
+    }
+}
