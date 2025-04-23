@@ -1,0 +1,51 @@
+class Node {
+    int val;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.val = data;
+    }
+}
+
+public class CountBst {
+
+ 
+    public boolean isvalidbst(Node root, int min, int max) {
+        if (root == null) return true;
+        if (root.val <= min || root.val >= max) return false;
+
+        return isvalidbst(root.left, min, root.val) &&
+                isvalidbst(root.right, root.val, max);
+    }
+
+    
+    public int countsize(Node root) {
+        if (root == null) return 0;
+        return 1 + countsize(root.left) + countsize(root.right);
+    }
+
+    
+    public int largebst(Node root) {
+        if (root == null) return 0;
+        if (isvalidbst(root, Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+            return countsize(root);
+        }
+
+        return Math.max(largebst(root.left), largebst(root.right));
+    }
+
+    
+    public static void main(String[] args) {
+        CountBst s = new CountBst();
+
+        Node root = new Node(10);
+        root.left = new Node(5);
+        root.right = new Node(15);
+        root.left.left = new Node(1);
+        root.left.right = new Node(8);
+        root.right.right = new Node(7); // 7 < 15, invalid for right-subtree
+
+        System.out.println("Size of Largest BST Subtree: " + s.largebst(root));
+    }
+}
