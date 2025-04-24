@@ -1,0 +1,27 @@
+class Solution {
+    public int countCompleteSubarrays(int[] nums) {
+        HashSet<Integer> hs = new HashSet<>();
+        for (int num : nums) {
+            hs.add(num);
+        }
+        int distinct_elements = hs.size();
+        // find the subarrays having the same distinct number of elements as in the nums arr.for this we       //gonna use the variable range sliding window approach in which the condition would be distinct_elements.
+        // creating a list of list to store the subarrays.
+        List<List<Integer>> l=new ArrayList<>();
+       
+        for(int start=0;start<nums.length;start++){
+            List<Integer> subarray=new ArrayList<>();
+            HashSet<Integer> hss=new HashSet<>();
+            for(int end=start;end<nums.length;end++){
+                subarray.add(nums[end]);
+                hss.add(nums[end]);
+                if(hss.size()==distinct_elements){
+                    l.add(new ArrayList<>(subarray));
+                    subarray.clear();
+                }
+            }
+
+        }
+        return l.size();
+    }
+}
