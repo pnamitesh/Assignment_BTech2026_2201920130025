@@ -1,0 +1,74 @@
+
+import java.util.*;
+
+
+public class dfs  {
+    static class Edge{
+        int src;
+        int dest;
+        // int weight;
+        Edge(int x,int y){
+            this.src=x;
+            this.dest=y;
+            // this.weight=z;
+        }
+    }
+
+    public static void creategraph(ArrayList<Edge> graph[]){
+
+        // initialising graph arr with null , while creating a al otherwise it will gonna be undefined
+
+        for(int i=0;i<graph.length;i++){
+            graph[i]=new ArrayList<Edge>();
+        }
+        graph[0].add(new Edge(0,2));
+        graph[1].add(new Edge(1,2));
+        graph[1].add(new Edge(1,3));
+        graph[2].add(new Edge(2,3));
+        graph[2].add(new Edge(2,1));
+        graph[2].add(new Edge(2,0));
+        graph[3].add(new Edge(3,1));
+        graph[3].add(new Edge(3,2));
+    }
+
+    public static void dfs(ArrayList<Edge> []graph,int curr,boolean vis[]){
+        System.out.print(curr+" ");
+        vis[curr]=true;
+        // for visiting neighbour recursively
+        for(int i=0;i<graph[curr].size();i++){
+            
+            Edge e=graph[curr].get(i);
+            if(vis[e.dest]==false){
+            dfs(graph,e.dest,vis);
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int v=4;
+
+        ArrayList<Edge> graph[]=new ArrayList[v];
+
+        boolean vis[]=new boolean[v];
+        creategraph(graph);
+
+        for(int i=0;i<v;i++){
+            if(vis[i]==false){
+                dfs(graph,0,vis);// where i is the starting point tellin the queue where to start this gonna help if the graph having disconnected components.
+            }
+        }
+
+        
+        
+        System.out.println();
+
+        
+
+
+
+
+    }
+}
+
+
+
+
